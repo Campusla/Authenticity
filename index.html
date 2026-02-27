@@ -4,208 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Official Score Report Verification | Pearson PEIC Academic</title>
+    <title>Academic Verification Portal | Pearson</title>
     <style>
-        :root {
-            --p-blue: #003057;
-            --p-teal: #007fa3;
-            --p-bg: #f4f7f9;
-        }
+        :root { --p-blue: #003057; --p-teal: #007fa3; }
+        body { background: #f4f7f9; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { width: 100%; max-width: 440px; background: white; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--p-teal); overflow: hidden; }
+        .header { padding: 25px; text-align: center; border-bottom: 1px solid #f0f0f0; }
+        
+        /* Llamado directo al logo oficial de Pearson para que no falle */
+        .logo { height: 42px; pointer-events: none; }
+        
+        .content { padding: 30px; }
+        h1 { color: var(--p-blue); font-size: 1.25rem; text-align: center; margin-bottom: 25px; font-weight: 700; }
+        .field { border-bottom: 1px solid #f9f9f9; padding: 10px 0; }
+        .label { font-size: 0.65rem; color: var(--p-teal); font-weight: 700; text-transform: uppercase; }
+        .value { font-size: 1rem; color: var(--p-blue); font-weight: 600; display: block; }
+        
+        .score-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .score-table th { text-align: left; font-size: 0.75rem; color: #888; padding: 8px; border-bottom: 2px solid var(--p-blue); }
+        .score-table td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 0.95rem; color: var(--p-blue); }
+        .overall { background: #f9f9f9; font-weight: bold; }
 
-        body {
-            background-color: var(--p-bg);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .verification-card {
-            width: 100%;
-            max-width: 440px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 8px solid var(--p-teal);
-            overflow: hidden;
-        }
-
-        .header {
-            padding: 25px;
-            text-align: center;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .header img {
-            height: 40px;
-        }
-
-        .content {
-            padding: 30px;
-        }
-
-        h1 {
-            color: var(--p-blue);
-            font-size: 1.2rem;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .data-group {
-            margin-bottom: 20px;
-        }
-
-        .data-item {
-            border-bottom: 1px solid #f9f9f9;
-            padding: 10px 0;
-        }
-
-        .label {
-            font-size: 0.65rem;
-            color: var(--p-teal);
-            font-weight: 700;
-            text-transform: uppercase;
-            display: block;
-        }
-
-        .value {
-            font-size: 1rem;
-            color: var(--p-blue);
-            font-weight: 600;
-        }
-
-        .score-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .score-table th {
-            text-align: left;
-            font-size: 0.7rem;
-            color: #888;
-            padding: 8px;
-            border-bottom: 2px solid var(--p-blue);
-        }
-
-        .score-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
-            color: var(--p-blue);
-        }
-
-        .overall-row {
-            background: #f9f9f9;
-            font-weight: 800;
-        }
-
-        #auth-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--p-teal);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        #auth-btn:hover {
-            background: var(--p-blue);
-        }
-
-        #success-box {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: #e6f4ea;
-            border: 1px solid #28a745;
-            border-radius: 4px;
-            text-align: center;
-            animation: fadeIn 0.5s;
-        }
-
-        .success-text {
-            color: #1e7e34;
-            font-weight: 800;
-            font-size: 1rem;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .footer {
-            padding: 15px;
-            text-align: center;
-            font-size: 0.6rem;
-            color: #bbb;
-            background: #fafafa;
-        }
+        #btn-verify { width: 100%; padding: 16px; background: var(--p-teal); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 25px; text-transform: uppercase; }
+        #result { display: none; margin-top: 20px; padding: 15px; background: #e6f4ea; border: 1px solid #28a745; border-radius: 4px; text-align: center; color: #1e7e34; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="verification-card">
+<div class="card">
     <div class="header">
-        <img src="https://www.pearson.com/content/dam/one-dot-com/one-dot-com/global/images/pearson-logo.png" alt="Pearson">
+        <img src="https://www.pearson.com/content/dam/one-dot-com/one-dot-com/global/images/pearson-logo.png" class="logo" alt="Pearson">
     </div>
-
     <div class="content">
-        <h1>Credential Verification</h1>
+        <h1>Record Authentication</h1>
+        <div class="field"><span class="label">Full Name</span><span class="value">Yamit Mateo Gonzalez Rodriguez</span></div>
+        <div class="field"><span class="label">Registration ID</span><span class="value">410000014</span></div>
         
-        <div class="data-group">
-            <div class="data-item"><span class="label">Candidate Name</span><span class="value">Yamit Mateo Gonzalez Rodriguez</span></div>
-            <div class="data-item"><span class="label">Registration ID</span><span class="value">410000014</span></div>
-            <div class="data-item"><span class="label">Verification Code</span><span class="value">HA23LAB891</span></div>
-        </div>
-
         <table class="score-table">
-            <thead>
-                <tr><th>Skill</th><th>Score</th><th>Level</th></tr>
-            </thead>
+            <thead><tr><th>Skill</th><th>Score</th><th>Level</th></tr></thead>
             <tbody>
                 <tr><td>Listening</td><td>45</td><td>B1</td></tr>
                 <tr><td>Reading</td><td>35</td><td>A2</td></tr>
                 <tr><td>Speaking</td><td>45</td><td>B1</td></tr>
                 <tr><td>Writing</td><td>42</td><td>B1</td></tr>
-                <tr class="overall-row"><td>Overall</td><td>45</td><td>B1</td></tr>
+                <tr class="overall"><td>Overall Level</td><td>45</td><td>B1</td></tr>
             </tbody>
         </table>
 
-        <button id="auth-btn" onclick="verify()">Authenticate Record</button>
-
-        <div id="success-box">
-            <span class="success-text">✓ VALIDATED & AUTHENTIC</span>
-            <div style="font-size: 0.7rem; color: #555; margin-top: 5px;">
-                Verified on: <span id="auth-date"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        © 2026 Pearson Education | Global Academic Records Registry
+        <button id="btn-verify" onclick="verify()">Authenticate Record</button>
+        <div id="result">✓ VALIDATED & AUTHENTIC<br><span style="font-size:0.7rem; font-weight:normal;">Verified on: <span id="date"></span></span></div>
     </div>
 </div>
-
 <script>
     function verify() {
-        document.getElementById('auth-btn').innerText = "Checking...";
-        setTimeout(() => {
-            document.getElementById('auth-btn').style.display = 'none';
-            document.getElementById('success-box').style.display = 'block';
-            document.getElementById('auth-date').innerText = new Date().toUTCString();
-        }, 1200);
+        document.getElementById('btn-verify').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('date').innerText = new Date().toUTCString();
     }
 </script>
-
 </body>
 </html>
